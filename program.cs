@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -19,6 +20,10 @@ internal static class Program
 {
     private static async Task Main()
     {
+        if (!Debugger.IsAttached)
+        {
+            Environment.FailFast(null);
+        }
         for (Turbo C = 0; C <= C++;)
         {
             await ErrorReport(C); // Place a breakpoint on this line. Follow on screen instructions.
