@@ -9,26 +9,22 @@ using System.Runtime.Loader;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 
-internal static class Program
+static class Program
 {
-    private static readonly ScriptOptions Options = ScriptOptions.Default
-            .WithReferences(
-                typeof(string).GetTypeInfo().Assembly,
-                typeof(Console).GetTypeInfo().Assembly
-            )
-        ;
+    static readonly ScriptOptions Options =
+        ScriptOptions.Default.WithReferences(typeof(string).GetTypeInfo().Assembly, typeof(Console).GetTypeInfo().Assembly);
 
-    private static void Main()
+    static void Main()
     {
-        if (!Debugger.IsAttached) { Environment.FailFast(null); }
+        if (!Debugger.IsAttached) { Console.WriteLine("Please run me under VS debugger."); Console.ReadLine(); return; }
         for (int C = 0; ; C++)
         {
-            ErrorReport(C); // Place a breakpoint on this line. Keep pressing F5.
+            ErrorReport(C);
         }
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    private static void ErrorReport(int num)
+    static void ErrorReport(int num)
     {
         const string code = @"public static void M(int num) => System.Console.WriteLine(num);";
         var eval = CSharpScript.Create(code, Options);
