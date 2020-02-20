@@ -19,12 +19,12 @@ static class Program
         if (!Debugger.IsAttached) { Console.WriteLine("Please run me under VS debugger."); Console.ReadLine(); return; }
         for (int C = 0; ; C++)
         {
-            ErrorReport(C);
+            Clash(C);
         }
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    static void ErrorReport(int num)
+    static void Clash(int num)
     {
         const string code = @"public static void M(int num) => System.Console.WriteLine(num);";
         var eval = CSharpScript.Create(code, Options);
