@@ -11,32 +11,19 @@ using Microsoft.CodeAnalysis.Scripting;
 
 internal static class Program
 {
-    private static readonly ScriptOptions Options;
-
-    static Program()
-    {
-        Options = ScriptOptions.Default
-                .WithReferences(
-                    typeof(string).GetTypeInfo().Assembly,
-                    typeof(Console).GetTypeInfo().Assembly
-                )
-            ;
-    }
+    private static readonly ScriptOptions Options = ScriptOptions.Default
+            .WithReferences(
+                typeof(string).GetTypeInfo().Assembly,
+                typeof(Console).GetTypeInfo().Assembly
+            )
+        ;
 
     private static void Main()
     {
         if (!Debugger.IsAttached) { Environment.FailFast(null); }
-        try
+        for (int C = 0; ; C++)
         {
-            for (int C = 0; ; C++)
-            {
-                ErrorReport(C); // Place a breakpoint on this line. Keep pressing F5.
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.Error.WriteLine(ex);
-            throw;
+            ErrorReport(C); // Place a breakpoint on this line. Keep pressing F5.
         }
     }
 
